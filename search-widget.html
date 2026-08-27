@@ -1,5 +1,5 @@
 <!-- FounderNest search widget — paste into a Webflow Embed block -->
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+<!-- Uses 'Bureau Serif' — this relies on the font already being loaded site-wide on your Webflow project (it's a licensed font, not on Google Fonts). Falls back to Georgia if unavailable. -->
 <style>
   .fn-search-widget {
     --blue: #166DCB;
@@ -12,15 +12,15 @@
     --card-bg: #ffffff;
     --accent: #B9EB5C;
     --accent-hover: #A9DB4C;
-    font-family: 'DM Sans', sans-serif;
-    max-width: 860px;
+    font-family: 'Bureau Serif', Georgia, 'Times New Roman', serif;
+    max-width: 960px;
     margin: 0 auto;
   }
   .fn-search-widget .fn-card {
     background: var(--card-bg);
     border: 1px solid var(--border);
     border-radius: 16px;
-    padding: 20px 20px 22px;
+    padding: 16px 18px 18px;
   }
   .fn-search-widget .fn-input-row {
     display: flex;
@@ -28,19 +28,41 @@
     gap: 14px;
     background: transparent;
     border: none;
-    padding: 4px 4px 20px;
+    padding: 4px 4px 14px;
+  }
+  .fn-search-widget .fn-input-wrap {
+    position: relative;
+    flex: 1;
+    min-width: 0;
   }
   .fn-search-widget .fn-input {
-    flex: 1;
+    width: 100%;
     border: none;
     outline: none;
     background: transparent;
     font-family: inherit;
-    font-size: 16px;
+    font-size: 17px;
     color: var(--text);
-    min-width: 0;
   }
   .fn-search-widget .fn-input::placeholder { color: #94A3B8; }
+  .fn-search-widget .fn-typewriter {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: inherit;
+    font-size: 17px;
+    color: #94A3B8;
+    white-space: nowrap;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .fn-search-widget .fn-typewriter .fn-cursor {
+    display: inline-block;
+    margin-left: 1px;
+    animation: fn-blink 1s step-end infinite;
+  }
+  @keyframes fn-blink { 50% { opacity: 0; } }
   .fn-search-widget .fn-submit {
     flex-shrink: 0;
     width: 40px;
@@ -61,7 +83,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-    margin-top: 16px;
+    margin-top: 12px;
   }
   .fn-search-widget .fn-chip {
     font-family: inherit;
@@ -80,17 +102,20 @@
 <div class="fn-search-widget">
   <div class="fn-card">
     <form class="fn-input-row" id="fnSearchForm">
-      <input
-        type="text"
-        class="fn-input"
-        id="fnSearchInput"
-        placeholder="Spend ingestion"
-        autocomplete="off"
-      />
+      <div class="fn-input-wrap">
+        <input
+          type="text"
+          class="fn-input"
+          id="fnSearchInput"
+          placeholder=""
+          autocomplete="off"
+        />
+        <div class="fn-typewriter" id="fnTypewriter" aria-hidden="true"><span class="fn-typed"></span><span class="fn-cursor">|</span></div>
+      </div>
       <button type="submit" class="fn-submit" aria-label="Search">
-        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M9 3.5 10.4 7.6 14.5 9 10.4 10.4 9 14.5 7.6 10.4 3.5 9 7.6 7.6 9 3.5Z" fill="#0F172A"/>
-          <path d="M17 12.5 17.9 15.1 20.5 16 17.9 16.9 17 19.5 16.1 16.9 13.5 16 16.1 15.1 17 12.5Z" fill="#0F172A"/>
+        <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path transform="translate(0,0) scale(0.78)" d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.582a.5.5 0 0 1 0 .962L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z" fill="#0F172A"/>
+          <path transform="translate(15,15) scale(0.46)" d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.582a.5.5 0 0 1 0 .962L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z" fill="#0F172A"/>
         </svg>
       </button>
     </form>
@@ -107,7 +132,59 @@
   var form = document.getElementById('fnSearchForm');
   var input = document.getElementById('fnSearchInput');
   var chips = document.querySelectorAll('.fn-search-widget .fn-chip');
+  var typewriter = document.getElementById('fnTypewriter');
+  var typedEl = typewriter ? typewriter.querySelector('.fn-typed') : null;
   var baseUrl = 'https://app.klaro.io/analyst';
+
+  var ideas = [
+    'Spend ingestion',
+    'Supplier mapping',
+    'AI opportunity assessment',
+    'Emerging biotech targets'
+  ];
+  var ideaIndex = 0;
+  var charIndex = 0;
+  var deleting = false;
+  var typewriterTimer = null;
+  var typewriterStopped = false;
+
+  function stopTypewriter() {
+    typewriterStopped = true;
+    if (typewriterTimer) clearTimeout(typewriterTimer);
+    if (typewriter) typewriter.style.display = 'none';
+  }
+
+  function runTypewriter() {
+    if (typewriterStopped || !typedEl) return;
+    var current = ideas[ideaIndex];
+    var typingSpeed = deleting ? 35 : 65;
+
+    if (!deleting && charIndex <= current.length) {
+      typedEl.textContent = current.slice(0, charIndex);
+      charIndex++;
+      if (charIndex > current.length) {
+        typingSpeed = 1400;
+        deleting = true;
+      }
+    } else if (deleting && charIndex >= 0) {
+      typedEl.textContent = current.slice(0, charIndex);
+      charIndex--;
+      if (charIndex < 0) {
+        deleting = false;
+        charIndex = 0;
+        ideaIndex = (ideaIndex + 1) % ideas.length;
+        typingSpeed = 400;
+      }
+    }
+
+    typewriterTimer = setTimeout(runTypewriter, typingSpeed);
+  }
+
+  if (typewriter && typedEl) {
+    runTypewriter();
+    input.addEventListener('focus', stopTypewriter);
+    input.addEventListener('input', stopTypewriter);
+  }
 
   function goToKlaro(query) {
     var q = (query || '').trim();
