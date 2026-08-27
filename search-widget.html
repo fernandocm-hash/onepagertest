@@ -45,24 +45,6 @@
     color: var(--text);
   }
   .fn-search-widget .fn-input::placeholder { color: #94A3B8; }
-  .fn-search-widget .fn-typewriter {
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    font-family: inherit;
-    font-size: 17px;
-    color: #94A3B8;
-    white-space: nowrap;
-    overflow: hidden;
-    pointer-events: none;
-  }
-  .fn-search-widget .fn-typewriter .fn-cursor {
-    display: inline-block;
-    margin-left: 1px;
-    animation: fn-blink 1s step-end infinite;
-  }
-  @keyframes fn-blink { 50% { opacity: 0; } }
   .fn-search-widget .fn-submit {
     flex-shrink: 0;
     width: 44px;
@@ -107,10 +89,9 @@
           type="text"
           class="fn-input"
           id="fnSearchInput"
-          placeholder=""
+          placeholder="Type here whatever market you would like to analyze..."
           autocomplete="off"
         />
-        <div class="fn-typewriter" id="fnTypewriter" aria-hidden="true"><span class="fn-typed"></span><span class="fn-cursor">|</span></div>
       </div>
       <button type="submit" class="fn-submit" aria-label="Search">
         <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -132,59 +113,7 @@
   var form = document.getElementById('fnSearchForm');
   var input = document.getElementById('fnSearchInput');
   var chips = document.querySelectorAll('.fn-search-widget .fn-chip');
-  var typewriter = document.getElementById('fnTypewriter');
-  var typedEl = typewriter ? typewriter.querySelector('.fn-typed') : null;
   var baseUrl = 'https://app.klaro.io/analyst';
-
-  var ideas = [
-    'Spend ingestion',
-    'Supplier mapping',
-    'AI opportunity assessment',
-    'Emerging biotech targets'
-  ];
-  var ideaIndex = 0;
-  var charIndex = 0;
-  var deleting = false;
-  var typewriterTimer = null;
-  var typewriterStopped = false;
-
-  function stopTypewriter() {
-    typewriterStopped = true;
-    if (typewriterTimer) clearTimeout(typewriterTimer);
-    if (typewriter) typewriter.style.display = 'none';
-  }
-
-  function runTypewriter() {
-    if (typewriterStopped || !typedEl) return;
-    var current = ideas[ideaIndex];
-    var typingSpeed = deleting ? 35 : 65;
-
-    if (!deleting && charIndex <= current.length) {
-      typedEl.textContent = current.slice(0, charIndex);
-      charIndex++;
-      if (charIndex > current.length) {
-        typingSpeed = 1400;
-        deleting = true;
-      }
-    } else if (deleting && charIndex >= 0) {
-      typedEl.textContent = current.slice(0, charIndex);
-      charIndex--;
-      if (charIndex < 0) {
-        deleting = false;
-        charIndex = 0;
-        ideaIndex = (ideaIndex + 1) % ideas.length;
-        typingSpeed = 400;
-      }
-    }
-
-    typewriterTimer = setTimeout(runTypewriter, typingSpeed);
-  }
-
-  if (typewriter && typedEl) {
-    runTypewriter();
-    input.addEventListener('focus', stopTypewriter);
-    input.addEventListener('input', stopTypewriter);
-  }
 
   function goToKlaro(query) {
     var q = (query || '').trim();
