@@ -6,9 +6,10 @@
     --text: #0F172A;
     --muted: #64748B;
     --border: #E2E8F0;
-    --chip-bg: #F1F5F9;
-    --chip-bg-hover: #E2E8F0;
-    --card-bg: #FAFAF9;
+    --chip-bg: #EEF2FA;
+    --chip-bg-hover: #E2E9F5;
+    --chip-text: #5B7290;
+    --card-bg: #ECEAE6;
     --accent: #B9EB5C;
     --accent-hover: #A9DB4C;
     font-family: 'DM Sans', sans-serif;
@@ -56,7 +57,7 @@
   }
   .fn-search-widget .fn-submit:hover { background: var(--accent-hover); }
   .fn-search-widget .fn-submit:active { transform: scale(0.95); }
-  .fn-search-widget .fn-submit svg { width: 18px; height: 18px; }
+  .fn-search-widget .fn-submit svg { width: 20px; height: 20px; }
   .fn-search-widget .fn-chips {
     display: flex;
     flex-wrap: wrap;
@@ -66,7 +67,7 @@
   .fn-search-widget .fn-chip {
     font-family: inherit;
     font-size: 13.5px;
-    color: var(--muted);
+    color: var(--chip-text);
     background: var(--chip-bg);
     border: none;
     border-radius: 100px;
@@ -89,7 +90,8 @@
       />
       <button type="submit" class="fn-submit" aria-label="Search">
         <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M11 4a7 7 0 1 0 4.9 12.02l4.54 4.54a1 1 0 0 0 1.41-1.41l-4.54-4.55A7 7 0 0 0 11 4Zm-5 7a5 5 0 1 1 10 0 5 5 0 0 1-10 0Z" fill="#0F172A"/>
+          <path d="M9 3.5 10.4 7.6 14.5 9 10.4 10.4 9 14.5 7.6 10.4 3.5 9 7.6 7.6 9 3.5Z" fill="#0F172A"/>
+          <path d="M17 12.5 17.9 15.1 20.5 16 17.9 16.9 17 19.5 16.1 16.9 13.5 16 16.1 15.1 17 12.5Z" fill="#0F172A"/>
         </svg>
       </button>
     </form>
