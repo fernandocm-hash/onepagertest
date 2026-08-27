@@ -1,0 +1,132 @@
+<!-- FounderNest search widget — paste into a Webflow Embed block -->
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+  .fn-search-widget {
+    --blue: #166DCB;
+    --text: #0F172A;
+    --muted: #64748B;
+    --border: #E2E8F0;
+    --chip-bg: #F1F5F9;
+    --chip-bg-hover: #E2E8F0;
+    --card-bg: #FAFAF9;
+    --accent: #B9EB5C;
+    --accent-hover: #A9DB4C;
+    font-family: 'DM Sans', sans-serif;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+  .fn-search-widget .fn-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px 20px 22px;
+  }
+  .fn-search-widget .fn-input-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 16px;
+  }
+  .fn-search-widget .fn-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-family: inherit;
+    font-size: 16px;
+    color: var(--text);
+    min-width: 0;
+  }
+  .fn-search-widget .fn-input::placeholder { color: #94A3B8; }
+  .fn-search-widget .fn-submit {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: var(--accent);
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.15s ease, transform 0.1s ease;
+  }
+  .fn-search-widget .fn-submit:hover { background: var(--accent-hover); }
+  .fn-search-widget .fn-submit:active { transform: scale(0.95); }
+  .fn-search-widget .fn-submit svg { width: 18px; height: 18px; }
+  .fn-search-widget .fn-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 16px;
+  }
+  .fn-search-widget .fn-chip {
+    font-family: inherit;
+    font-size: 13.5px;
+    color: var(--muted);
+    background: var(--chip-bg);
+    border: none;
+    border-radius: 100px;
+    padding: 9px 16px;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  .fn-search-widget .fn-chip:hover { background: var(--chip-bg-hover); color: var(--text); }
+</style>
+
+<div class="fn-search-widget">
+  <div class="fn-card">
+    <form class="fn-input-row" id="fnSearchForm">
+      <input
+        type="text"
+        class="fn-input"
+        id="fnSearchInput"
+        placeholder="Spend ingestion"
+        autocomplete="off"
+      />
+      <button type="submit" class="fn-submit" aria-label="Search">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M11 4a7 7 0 1 0 4.9 12.02l4.54 4.54a1 1 0 0 0 1.41-1.41l-4.54-4.55A7 7 0 0 0 11 4Zm-5 7a5 5 0 1 1 10 0 5 5 0 0 1-10 0Z" fill="#0F172A"/>
+        </svg>
+      </button>
+    </form>
+    <div class="fn-chips">
+      <button type="button" class="fn-chip">synthetic biology for agriculture</button>
+      <button type="button" class="fn-chip">home robotics in Europe</button>
+      <button type="button" class="fn-chip">breakthroughs in protein folding</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  var form = document.getElementById('fnSearchForm');
+  var input = document.getElementById('fnSearchInput');
+  var chips = document.querySelectorAll('.fn-search-widget .fn-chip');
+  var baseUrl = 'https://app.klaro.io/analyst';
+
+  function goToKlaro(query) {
+    var q = (query || '').trim();
+    var url = baseUrl;
+    if (q) {
+      url += '?q=' + encodeURIComponent(q);
+    }
+    window.location.href = url;
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    goToKlaro(input.value);
+  });
+
+  chips.forEach(function (chip) {
+    chip.addEventListener('click', function () {
+      input.value = chip.textContent;
+      input.focus();
+    });
+  });
+})();
+</script>
