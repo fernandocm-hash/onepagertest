@@ -1,5 +1,5 @@
 <!-- FounderNest search widget — paste into a Webflow Embed block -->
-<!-- Uses 'Bureau Serif' — this relies on the font already being loaded site-wide on your Webflow project (it's a licensed font, not on Google Fonts). Falls back to Georgia if unavailable. -->
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
 <style>
   .fn-search-widget {
     --blue: #166DCB;
@@ -12,7 +12,7 @@
     --card-bg: #ffffff;
     --accent: #B9EB5C;
     --accent-hover: #A9DB4C;
-    font-family: 'Bureau Serif', Georgia, 'Times New Roman', serif;
+    font-family: 'DM Sans', sans-serif;
     max-width: 960px;
     margin: 0 auto;
   }
@@ -65,8 +65,8 @@
   @keyframes fn-blink { 50% { opacity: 0; } }
   .fn-search-widget .fn-submit {
     flex-shrink: 0;
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
     border-radius: 10px;
     background: var(--accent);
     border: none;
@@ -78,7 +78,7 @@
   }
   .fn-search-widget .fn-submit:hover { background: var(--accent-hover); }
   .fn-search-widget .fn-submit:active { transform: scale(0.95); }
-  .fn-search-widget .fn-submit svg { width: 20px; height: 20px; }
+  .fn-search-widget .fn-submit svg { width: 30px; height: 30px; }
   .fn-search-widget .fn-chips {
     display: flex;
     flex-wrap: wrap;
@@ -114,8 +114,8 @@
       </div>
       <button type="submit" class="fn-submit" aria-label="Search">
         <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path transform="translate(0,0) scale(0.78)" d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.582a.5.5 0 0 1 0 .962L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z" fill="#0F172A"/>
-          <path transform="translate(15,15) scale(0.46)" d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.582a.5.5 0 0 1 0 .962L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z" fill="#0F172A"/>
+          <path transform="translate(-1,-1) scale(0.95)" d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.582a.5.5 0 0 1 0 .962L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z" fill="#0F172A"/>
+          <path transform="translate(15,15) scale(0.58)" d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.582a.5.5 0 0 1 0 .962L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z" fill="#0F172A"/>
         </svg>
       </button>
     </form>
