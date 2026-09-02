@@ -45,6 +45,22 @@
     color: var(--text);
   }
   .fn-search-widget .fn-input::placeholder { color: #94A3B8; }
+  .fn-search-widget .fn-cursor {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 19px;
+    background: #94A3B8;
+    display: none;
+    animation: fn-blink 1s step-end infinite;
+    pointer-events: none;
+  }
+  .fn-search-widget .fn-input:placeholder-shown:not(:focus) ~ .fn-cursor {
+    display: block;
+  }
+  @keyframes fn-blink { 50% { opacity: 0; } }
   .fn-search-widget .fn-submit {
     flex-shrink: 0;
     width: 44px;
@@ -92,6 +108,7 @@
           placeholder="Try the analyst now by typing your market intelligence query here.."
           autocomplete="off"
         />
+        <span class="fn-cursor" aria-hidden="true"></span>
       </div>
       <button type="submit" class="fn-submit" aria-label="Search">
         <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
